@@ -1,75 +1,102 @@
-# 📄 Real-Time Collaborative Text Editor
+<div align="center">
+  <img src="https://ssl.gstatic.com/docs/templates/thumbnails/docs-blank-googlecolors.png" width="100" />
+  <h1>📝 Real-Time Collaborative Text Editor</h1>
+  <p>A production-grade, Google Docs-style rich text editor allowing multiple users to instantly edit documents together seamlessly in real-time.</p>
+  
+  [![React](https://img.shields.io/badge/React-19-blue.svg?style=for-the-badge&logo=react)](https://reactjs.org/)
+  [![Django](https://img.shields.io/badge/Django-6.0-092E20.svg?style=for-the-badge&logo=django)](https://www.djangoproject.com/)
+  [![Django Channels](https://img.shields.io/badge/Channels-WebSockets-red.svg?style=for-the-badge&logo=python)]()
+  [![Vite](https://img.shields.io/badge/Vite-Bundler-646CFF.svg?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+</div>
 
-A production-grade, Google Docs-style real-time collaborative text editor built with Django, Django Channels, React, and WebSocket Operational Transformation (OT).
+<br />
 
-![Editor Preview](https://ssl.gstatic.com/docs/templates/thumbnails/docs-blank-googlecolors.png)
+![Editor View](./assets/editor.png)
 
-## ✨ Features
-*   **Real-Time Collaboration**: Flawless text synchronization using Operational Transformation (`diff-match-patch`) via WebSockets to instantly resolve multi-user editing conflicts.
-*   **Live Multiplayer Cursors**: See exactly where other people are typing with dynamically colored, name-tagged glowing cursors exactly like Google Docs.
-*   **Time Machine History**: Every 10 seconds of active typing is snapshotted to the database. Open the right-side History Drawer to view and instantly restore past versions of your document.
-*   **Secure Authentication & Ownership**: Django JWT token authorization locks down your documents. Only the Owner and directly invited (`Shared`) collaborators can view or edit documents.
-*   **Minimalist Premium UI**: A highly polished, modern interface with smooth hover transitions, blurred frosted-glass toolbars, and a clean reading view inspired by Notion and Google Docs.
+## ✨ Core Features
 
-## 🛠️ Tech Stack
-**Frontend:**
-*   React 19 (Vite)
-*   React Router DOM
-*   ReactQuill + Quill-Cursors
-*   Tailwind / Vanilla CSS
-*   Axios for REST APIs
-*   Native WebSocket API hooking
+| Feature | Description |
+| :--- | :--- |
+| **⚡ Real-Time Collaboration** | Flawless text synchronization using Operational Transformation (`diff-match-patch`) via WebSockets to instantly resolve multi-user editing conflicts. |
+| **🖱️ Multiplayer Cursors** | See exactly where other people are typing with dynamically colored, name-tagged glowing cursors exactly like Google Docs. |
+| **🕒 Time Machine History** | Every 10 seconds of active typing is snapshotted to the database. Open the right-side History Drawer to view and instantly restore past versions of your document. |
+| **🔐 Secure Authentication** | Django JWT token authorization locks down your documents. Only the Owner and directly invited (`Shared`) collaborators can view or edit documents. |
+| **💅 Minimalist Premium UI** | A highly polished, modern interface with smooth hover transitions, blurred frosted-glass toolbars, and a clean reading view inspired by Notion and Google Docs. |
 
-**Backend:**
-*   Django 6.0 + Django REST Framework
-*   Django Channels + Daphne (ASGI) for WebSockets
-*   Redis / InMemory Channel Layers
-*   Google's `diff-match-patch` Python Port for OT
+---
+
+## 🛠️ Technology Stack Architecture
+
+### 🌐 Frontend (Client)
+- **Framework**: React 19 (via Vite)
+- **Routing**: React Router DOM (v7)
+- **Editor Core**: ReactQuill (`v2` Snow Theme)
+- **Presence**: `quill-cursors` for live caret positions
+- **Styling**: Vanilla CSS with modern Flexbox & custom Google-style presets
+- **Networking**: `Axios` and Native WebSockets
+
+### ⚙️ Backend (Server)
+- **Framework**: Django 6.0 & DRF (Django REST Framework)
+- **Real-Time Hub**: Django Channels + Daphne ASGI Server
+- **Database**: MySQL Backend with JSONFields for incremental patches
+- **Algorithm**: Google's `diff-match-patch` Python Port for Conflict Resolution Engine
+
+<br />
+
+![Collaboration View](./assets/collaboration.png)
 
 ---
 
 ## 🚀 Local Setup Guide
 
-### 1. Backend Setup
-1. Open a terminal in the `backend/` directory.
-2. Initialize the Python virtual environment:
-   ```bash
-   python -m venv venv
-   .\venv\Scripts\activate   # Windows
-   source venv/bin/activate  # Mac/Linux
-   ```
-3. Install the dependencies:
-   ```bash
-   pip install -r requirements.txt
-   pip install daphne  # Django Channels ASGI Server
-   ```
-4. Run the database migrations:
-   ```bash
-   python manage.py makemigrations
-   python manage.py migrate
-   ```
-5. Start the backend development server (it will automatically boot into Daphne ASGI mode):
-   ```bash
-   python manage.py runserver
-   ```
+Follow these instructions to run the application locally.
+
+### 1. Database & Backend Setup
+Open a terminal in the `backend/` directory:
+
+```bash
+# Initialize Virtual Environment
+python -m venv venv
+
+# Activate Environment
+.\venv\Scripts\activate   # Windows
+source venv/bin/activate  # Mac/Linux
+
+# Install Core Dependencies & Application Server
+pip install -r requirements.txt
+pip install daphne diff-match-patch
+
+# Run Database Migrations
+python manage.py makemigrations
+python manage.py migrate
+
+# Boot the Development Server (Auto-defaults to Daphne ASGI)
+python manage.py runserver
+```
 
 ### 2. Frontend Setup
-1. Open a new terminal in the `frontend/` directory.
-2. Install the Node modules:
-   ```bash
-   npm install
-   ```
-3. Start the Vite development server:
-   ```bash
-   npm run dev
-   ```
-The frontend will be available at `http://localhost:5173/`. 
+Open a new terminal in the `frontend/` directory:
 
-## 🔒 Usage
-1. First, **Register** an account on the login page.
-2. You will be redirected to the Dashboard. Click the visual **Start a new document** card.
-3. Once inside your new document, copy the URL or click **Share** to invite another user. Note: The target user must also have an account registered.
-4. Have the invited user log in on a separate browser window and open the document. You will see their cursor pop onto your screen!
+```bash
+# Install NodeJS dependencies
+npm install
 
-## 📜 License
-MIT License.
+# Start the Vite Hot-Reloading Server
+npm run dev
+```
+Navigate your browser to `http://localhost:5173/`!
+
+---
+
+## 🎮 How to Collaborate
+1. **Register** a new account on the startup Login page.
+2. Click the central **Start a new document** card on your shiny new Dashboard.
+3. Once the editor boots up, click **Share** in the top right to securely invite another registered user's username.
+4. Open a second browser window, log in as the invited user, and open the document.
+5. Type on both screens and watch your **cursors dance in real-time!**
+
+<br />
+
+<div align="center">
+  <i>Designed and built for instantaneous collaboration.</i>
+</div>
