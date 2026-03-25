@@ -43,7 +43,8 @@
 
 <br />
 
-![Collaboration View](./assets/collaboration.png)
+<img width="1916" height="873" alt="image" src="https://github.com/user-attachments/assets/b899b048-49b1-49dc-9013-3de4a9ed6c59" />
+
 
 ---
 
