@@ -11,7 +11,8 @@
 
 <br />
 
-![Editor View](./assets/editor.png)
+<img width="1918" height="493" alt="image" src="https://github.com/user-attachments/assets/36afb091-2a08-4532-949b-ecc44669df8b" />
+
 
 ## ✨ Core Features
 
